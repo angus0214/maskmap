@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaskMap by Angus41C</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css">
+    </link>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet/scss/all.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <script src="js/map.js"></script>
+
+    </link>
+
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="sidebar">
+        <div class="info">
+            <p id="tDate">2020 - 02 - 06</p>
+            <h2 id="weekDay">星期四</h2>
+            <h3>身分證末一碼 <span id="whoToday">偶數</span> 字號者可購買口罩</h3>
+            <p>※一週限購一次，每次一人限購兩片</p>
+        </div>
+        <div class="searchbar">
+            <div class="selectBox">
+                <select name="" id="citySelect" >
+                    <option value="test" selected disabled>請選擇縣市</option>
+                </select>
+                <select name="" id="townSelect">
+                    <option value="" selected disabled>請選擇鄉鎮區</option>
+                    <option value="">士林區</option>
+                </select>
+            </div>
+            <div class="maskGroup" id="maskGroup">
+                <button class="btn active">所有口罩</button>
+                <button class="btn">成人口罩</button>
+                <button class="btn">兒童口罩</button>
+            </div>
+        </div>
+        <div class="list">
+            <ul id="nameList">
+                <li>
+                    <h2>請先選擇區域</h2>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
