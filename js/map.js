@@ -180,7 +180,7 @@ function moveToIcon(map) {
                         <span class="btn ${maskCount(e.target.dataset.maskadult, 'adult')}">成人口罩<br> ${e.target.dataset.maskadult} 個</span>
                         <span class="btn ${maskCount(e.target.dataset.maskchild, 'kid')}">兒童口罩 ${e.target.dataset.maskchild} 個</span>
                     </div>
-                    <button class="btn google">Google 路線導航</button>
+                    <a class="btn google" href="https://www.google.com.tw/maps/dir//${e.target.dataset.address}" target="_blank">Google 路線導航</a>
                     </div>
                     `
                 )
