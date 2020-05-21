@@ -1,6 +1,7 @@
 $.ajaxSetup({
     async: false
 });
+
 $(document).ready(function () {
     // sidebar 時間設定
     setDateDetail();
@@ -38,7 +39,7 @@ function setDateDetail() {
 
 function setBasicMap() {
     let data = getData();
-    var map = L.map('map', {
+    const map = L.map('map', {
         center: [25.047351, 121.5180114],
         zoom: 16
     });
@@ -47,7 +48,7 @@ function setBasicMap() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var markers = new L.MarkerClusterGroup().addTo(map);
+    let markers = new L.MarkerClusterGroup().addTo(map);
     for (let i = 0; data.length > i; i++) {
         let title = data[i].properties.name;
         let address = data[i].properties.address;
@@ -299,7 +300,7 @@ function btnSetActive(data , e){
         })
     }
 }
-var greenIcon = new L.Icon({
+let greenIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
     iconSize: [25, 41],
@@ -308,7 +309,7 @@ var greenIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
-var yellowIcon = new L.Icon({
+let yellowIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
     iconSize: [25, 41],
@@ -317,7 +318,7 @@ var yellowIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
-var greyIcon = new L.Icon({
+let greyIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
     iconSize: [25, 41],
