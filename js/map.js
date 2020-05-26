@@ -19,9 +19,9 @@ function setDateDetail() {
     let nowWeekday = weekdays[dd.getDay()];
     document.getElementById('weekDay').textContent = nowWeekday;
     //日期
-    Y = dd.getFullYear() + ' - ';
-    M = (dd.getMonth() + 1 < 10 ? '0' + (dd.getMonth() + 1) : dd.getMonth() + 1) + ' - ';
-    D = dd.getDate() + ' ';
+    let Y = dd.getFullYear() + ' - ';
+    let M = (dd.getMonth() + 1 < 10 ? '0' + (dd.getMonth() + 1) : dd.getMonth() + 1) + ' - ';
+    let D = dd.getDate() + ' ';
     document.getElementById('tDate').textContent = Y + M + D;
     //偶數奇數
     let whoToday;
