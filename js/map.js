@@ -231,11 +231,11 @@ function createList(data, target) {
     }
   }
   let maskFilter = getActive();
-  if (maskFilter === '1') {
+  if (maskFilter === 1) {
     dataFilter = dataFilter.sort(function (a, b) {
       return a.properties.mask_adult < b.properties.mask_adult ? 1 : -1;
     });
-  } else if (maskFilter === '2') {
+  } else if (maskFilter === 2) {
     dataFilter = dataFilter.sort(function (a, b) {
       return a.properties.mask_child < b.properties.mask_child ? 1 : -1;
     });
