@@ -44,19 +44,17 @@ function setBasicMap() {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
-
   let markers = new L.MarkerClusterGroup().addTo(map);
-  for (let i = 0; data.length > i; i++) {
-    let title = data[i].properties.name;
-    let address = data[i].properties.address;
-    let tel = data[i].properties.phone;
-    let maskAdult = data[i].properties.mask_adult;
-    let maskChild = data[i].properties.mask_child;
+  data.forEach(function (item) {
+    let title = item.properties.name;
+    let address = item.properties.address;
+    let tel = item.properties.phone;
+    let maskAdult = item.properties.mask_adult;
+    let maskChild = item.properties.mask_child;
     markers.addLayer(
-      L.marker(
-        [data[i].geometry.coordinates[1], data[i].geometry.coordinates[0]],
-        { icon: selecltIconColor(maskAdult, maskChild) }
-      ).bindPopup(
+      L.marker([item.geometry.coordinates[1], item.geometry.coordinates[0]], {
+        icon: selecltIconColor(maskAdult, maskChild),
+      }).bindPopup(
         `
                 <div class="popupBox">
                 <h2>${title}</h2>
@@ -77,7 +75,7 @@ function setBasicMap() {
                 `
       )
     );
-  }
+  });
   map.addLayer(markers);
   markers.on('click', function (e) {
     map.setView([e.latlng.lat, e.latlng.lng], 20);
@@ -100,10 +98,10 @@ function setOptions(data, map) {
   let cityList = [];
   let city = [];
   let area = [];
-  for (let i = 0; i < data.length; i++) {
-    cityList.push(data[i].properties.county);
-  }
 
+  data.forEach(function (item) {
+    cityList.push(item.properties.county);
+  });
   repeatDataFilter(cityList, city);
 
   for (let i = 0; i < city.length; i++) {
@@ -123,9 +121,10 @@ function setOptions(data, map) {
 
   let citySelect = document.getElementById('citySelect');
   let townSelect = document.getElementById('townSelect');
-  for (let i = 0; i < area.length; i++) {
-    citySelect.add(new Option(area[i].county, area[i].county));
-  }
+
+  area.forEach(function (item) {
+    citySelect.add(new Option(item.county, item.county));
+  });
 
   citySelect.addEventListener('change', function () {
     townSelect.length = 0;
@@ -170,7 +169,6 @@ function selecltIconColor(maskAdult, maskChild) {
 function moveToIcon(map) {
   document.getElementById('nameList').addEventListener('click', function (e) {
     if (e.target.nodeName === 'H2') {
-      console.log(e);
       let lat = e.target.dataset.lat;
       let lng = e.target.dataset.lng;
       map.setView([lng, lat], 20);
@@ -222,14 +220,15 @@ function createList(data, target) {
   let list = document.getElementById('nameList');
   let str = '';
   let dataFilter = [];
-  for (let i = 0; i < data.length; i++) {
+  data.forEach(function (item) {
     if (
-      data[i].properties.county === citySelect.value &&
-      data[i].properties.town === target.target.value
+      item.properties.county === citySelect.value &&
+      item.properties.town === target.target.value
     ) {
-      dataFilter.push(data[i]);
+      dataFilter.push(item);
     }
-  }
+  });
+
   let maskFilter = getActive();
   if (maskFilter === 1) {
     dataFilter = dataFilter.sort(function (a, b) {
@@ -240,58 +239,57 @@ function createList(data, target) {
       return a.properties.mask_child < b.properties.mask_child ? 1 : -1;
     });
   }
-
   list.innerHTML = chooseMaskboxCss(dataFilter);
 }
 
 function chooseMaskboxCss(data) {
   let str = '';
-  for (let i = 0; i < data.length; i++) {
-    if (
-      data[i].properties.mask_adult !== 0 &&
-      data[i].properties.mask_child !== 0
-    ) {
+  data.forEach(function (item) {
+    if (item.properties.mask_adult !== 0 && item.properties.mask_child !== 0) {
       str += `                <li>
-            <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
-            <p>${data[i].properties.address}</p>
-            <p>電話｜${data[i].properties.phone}</p>
+            <h2 data-lat="${item.geometry.coordinates[0]}" data-lng="${item.geometry.coordinates[1]}" data-name="${item.properties.name}" data-tel="${item.properties.phone}" data-address="${item.properties.address}" data-maskAdult="${item.properties.mask_adult}" data-maskChild="${item.properties.mask_child}">${item.properties.name}</h2>
+            <p>${item.properties.address}</p>
+            <p>電話｜${item.properties.phone}</p>
             <div class="maskBox">
-                <span class="btn adult">成人口罩 ${data[i].properties.mask_adult} 個</span>
-                <span class="btn kid">兒童口罩 ${data[i].properties.mask_child} 個</span>
+                <span class="btn adult">成人口罩 ${item.properties.mask_adult} 個</span>
+                <span class="btn kid">兒童口罩 ${item.properties.mask_child} 個</span>
             </div>
         </li>`;
-    } else if (data[i].properties.mask_adult === 0) {
+    }
+    else if(item.properties.mask_adult === 0){
       str += `                <li>
-            <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
-            <p>${data[i].properties.address}</p>
-            <p>電話｜${data[i].properties.phone}</p>
-            <div class="maskBox">
-                <span class="btn noMask">成人口罩缺貨中</span>
-                <span class="btn kid">兒童口罩 ${data[i].properties.mask_child} 個</span>
-            </div>
-        </li>`;
-    } else if (data[i].properties.mask_child === 0) {
+      <h2 data-lat="${item.geometry.coordinates[0]}" data-lng="${item.geometry.coordinates[1]}" data-name="${item.properties.name}" data-tel="${item.properties.phone}" data-address="${item.properties.address}" data-maskAdult="${item.properties.mask_adult}" data-maskChild="${item.properties.mask_child}">${item.properties.name}</h2>
+      <p>${item.properties.address}</p>
+      <p>電話｜${item.properties.phone}</p>
+      <div class="maskBox">
+          <span class="btn noMask">成人口罩缺貨中</span>
+          <span class="btn kid">兒童口罩 ${item.properties.mask_child} 個</span>
+      </div>
+    </li>`;
+    }
+    else if(item.properties.mask_child === 0){
       str += `                <li>
-            <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
-            <p>${data[i].properties.address}</p>
-            <p>電話｜${data[i].properties.phone}</p>
-            <div class="maskBox">
-                <span class="btn adult">成人口罩 ${data[i].properties.mask_adult} 個</span>
-                <span class="btn noMask">兒童口罩缺貨中</span>
-            </div>
-        </li>`;
-    } else {
+      <h2 data-lat="${item.geometry.coordinates[0]}" data-lng="${item.geometry.coordinates[1]}" data-name="${item.properties.name}" data-tel="${item.properties.phone}" data-address="${item.properties.address}" data-maskAdult="${item.properties.mask_adult}" data-maskChild="${item.properties.mask_child}">${item.properties.name}</h2>
+      <p>${item.properties.address}</p>
+      <p>電話｜${item.properties.phone}</p>
+      <div class="maskBox">
+          <span class="btn adult">成人口罩 ${item.properties.mask_adult} 個</span>
+          <span class="btn noMask">兒童口罩缺貨中</span>
+      </div>
+  </li>`;
+    }
+    else{
       str += `                <li>
-            <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
-            <p>${data[i].properties.address}</p>
-            <p>電話｜${data[i].properties.phone}</p>
+            <h2 data-lat="${item.geometry.coordinates[0]}" data-lng="${item.geometry.coordinates[1]}" data-name="${item.properties.name}" data-tel="${item.properties.phone}" data-address="${item.properties.address}" data-maskAdult="${item.properties.mask_adult}" data-maskChild="${item.properties.mask_child}">${item.properties.name}</h2>
+            <p>${item.properties.address}</p>
+            <p>電話｜${item.properties.phone}</p>
             <div class="maskBox">
                 <span class="btn noMask">成人口罩缺貨中</span>
                 <span class="btn noMask">兒童口罩缺貨中</span>
             </div>
         </li>`;
     }
-  }
+  });
   return str;
 }
 
@@ -346,3 +344,5 @@ let greyIcon = new L.Icon({
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
 });
+
+function test() {}
