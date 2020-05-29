@@ -25,9 +25,9 @@ function setDateDetail() {
   document.getElementById('tDate').textContent = Y + M + D;
   //偶數奇數
   let whoToday;
-  if (dd.getDay() % 2 == 0 && dd.getDay() != 0) {
+  if (dd.getDay() % 2 === 0 && dd.getDay() !== 0) {
     whoToday = '偶數';
-  } else if (dd.getDay() % 2 != 0 && dd.getDay() != 0) {
+  } else if (dd.getDay() % 2 !== 0 && dd.getDay() != 0) {
     whoToday = '奇數';
   } else whoToday = 'null';
   document.getElementById('whoToday').textContent = whoToday;
@@ -112,7 +112,7 @@ function setOptions(data, map) {
     let townList = [];
     let town = [];
     for (let j = 0; j < data.length; j++) {
-      if (data[j].properties.county == city[i]) {
+      if (data[j].properties.county === city[i]) {
         townList.push(data[j].properties.town);
         repeatDataFilter(townList, town);
       }
@@ -131,7 +131,7 @@ function setOptions(data, map) {
     townSelect.length = 0;
     townSelect.add(new Option('請選擇鄉鎮區', '請選擇鄉鎮區'));
     for (let i = 0; i < citySelect.length - 1; i++) {
-      if (citySelect.value == area[i].county) {
+      if (citySelect.value === area[i].county) {
         for (let j = 0; j < area[i].town.length; j++) {
           townSelect.add(new Option(area[i].town[j], area[i].town[j]));
         }
@@ -149,7 +149,7 @@ function setOptions(data, map) {
 
 function repeatDataFilter(original, response) {
   original.forEach(function (value) {
-    if (response.indexOf(value) == -1 && value != '') {
+    if (response.indexOf(value) === -1 && value !== '') {
       response.push(value);
     }
   });
@@ -157,7 +157,7 @@ function repeatDataFilter(original, response) {
 
 function selecltIconColor(maskAdult, maskChild) {
   let iconColor;
-  if (maskAdult != 0 && maskChild != 0) {
+  if (maskAdult !== 0 && maskChild !== 0) {
     iconColor = greenIcon;
   } else if (maskAdult == 0 && maskChild == 0) {
     iconColor = greyIcon;
@@ -169,7 +169,7 @@ function selecltIconColor(maskAdult, maskChild) {
 
 function moveToIcon(map) {
   document.getElementById('nameList').addEventListener('click', function (e) {
-    if (e.target.nodeName == 'H2') {
+    if (e.target.nodeName === 'H2') {
       console.log(e);
       let lat = e.target.dataset.lat;
       let lng = e.target.dataset.lng;
@@ -211,7 +211,7 @@ function moveToTown(map) {
 }
 
 function maskCount(maskCount, type) {
-  if (maskCount == 0) {
+  if (maskCount === 0) {
     return null;
   } else {
     return type;
@@ -224,18 +224,18 @@ function createList(data, target) {
   let dataFilter = [];
   for (let i = 0; i < data.length; i++) {
     if (
-      data[i].properties.county == citySelect.value &&
-      data[i].properties.town == target.target.value
+      data[i].properties.county === citySelect.value &&
+      data[i].properties.town === target.target.value
     ) {
       dataFilter.push(data[i]);
     }
   }
   let maskFilter = getActive();
-  if (maskFilter == '1') {
+  if (maskFilter === '1') {
     dataFilter = dataFilter.sort(function (a, b) {
       return a.properties.mask_adult < b.properties.mask_adult ? 1 : -1;
     });
-  } else if (maskFilter == '2') {
+  } else if (maskFilter === '2') {
     dataFilter = dataFilter.sort(function (a, b) {
       return a.properties.mask_child < b.properties.mask_child ? 1 : -1;
     });
@@ -248,8 +248,8 @@ function chooseMaskboxCss(data) {
   let str = '';
   for (let i = 0; i < data.length; i++) {
     if (
-      data[i].properties.mask_adult != 0 &&
-      data[i].properties.mask_child != 0
+      data[i].properties.mask_adult !== 0 &&
+      data[i].properties.mask_child !== 0
     ) {
       str += `                <li>
             <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
@@ -260,7 +260,7 @@ function chooseMaskboxCss(data) {
                 <span class="btn kid">兒童口罩 ${data[i].properties.mask_child} 個</span>
             </div>
         </li>`;
-    } else if (data[i].properties.mask_adult == 0) {
+    } else if (data[i].properties.mask_adult === 0) {
       str += `                <li>
             <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
             <p>${data[i].properties.address}</p>
@@ -270,7 +270,7 @@ function chooseMaskboxCss(data) {
                 <span class="btn kid">兒童口罩 ${data[i].properties.mask_child} 個</span>
             </div>
         </li>`;
-    } else if (data[i].properties.mask_child == 0) {
+    } else if (data[i].properties.mask_child === 0) {
       str += `                <li>
             <h2 data-lat="${data[i].geometry.coordinates[0]}" data-lng="${data[i].geometry.coordinates[1]}" data-name="${data[i].properties.name}" data-tel="${data[i].properties.phone}" data-address="${data[i].properties.address}" data-maskAdult="${data[i].properties.mask_adult}" data-maskChild="${data[i].properties.mask_child}">${data[i].properties.name}</h2>
             <p>${data[i].properties.address}</p>
