@@ -273,6 +273,50 @@ body {
   border: none;
 }
 
+.btn-hide {
+  position: absolute;
+  left: 350px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 9999;
+  font-size: 50px;
+  padding: 5px;
+  color: #d65600;
+  cursor: pointer;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.btn-hide:hover {
+  -webkit-animation: icon-moving 1.5s infinite;
+          animation: icon-moving 1.5s infinite;
+}
+
+@-webkit-keyframes icon-moving {
+  0% {
+    left: 350px;
+  }
+  50% {
+    left: 343px;
+  }
+  100% {
+    left: 350px;
+  }
+}
+
+@keyframes icon-moving {
+  0% {
+    left: 350px;
+  }
+  50% {
+    left: 343px;
+  }
+  100% {
+    left: 350px;
+  }
+}
+
 .marker-cluster-small {
   background-color: rgba(181, 226, 140, 0.6);
 }
