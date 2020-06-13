@@ -78,6 +78,15 @@ body {
   width: 350px;
   z-index: 9999;
   background-color: #fff;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.sidebar.hide {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
 .btn {
@@ -273,7 +282,7 @@ body {
   border: none;
 }
 
-.btn-hide {
+.btn-toggle {
   position: absolute;
   left: 350px;
   top: 50%;
@@ -284,16 +293,18 @@ body {
   padding: 5px;
   color: #d65600;
   cursor: pointer;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  -webkit-transition: left 1.5s , -webkit-transform 1.5s;
+  transition: left 1.5s , -webkit-transform 1.5s;
+  transition: left 1.5s , transform 1.5s;
+  transition: left 1.5s , transform 1.5s , -webkit-transform 1.5s;
 }
 
-.btn-hide:hover {
-  -webkit-animation: icon-moving 1.5s infinite;
-          animation: icon-moving 1.5s infinite;
+.btn-toggle:hover {
+  -webkit-animation: icon-moving-hide 1.5s infinite;
+          animation: icon-moving-hide 1.5s infinite;
 }
 
-@-webkit-keyframes icon-moving {
+@-webkit-keyframes icon-moving-hide {
   0% {
     left: 350px;
   }
@@ -305,7 +316,7 @@ body {
   }
 }
 
-@keyframes icon-moving {
+@keyframes icon-moving-hide {
   0% {
     left: 350px;
   }
@@ -315,6 +326,15 @@ body {
   100% {
     left: 350px;
   }
+}
+
+.btn-toggle.hide {
+  -webkit-transform: translateY(-50%) translateX(-350px) rotate(180deg);
+          transform: translateY(-50%) translateX(-350px) rotate(180deg);
+  -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+  -webkit-transition: all 1.5s;
+  transition: all 1.5s;
 }
 
 .marker-cluster-small {
