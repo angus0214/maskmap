@@ -1,3 +1,18 @@
+@mixin pad-horiz{
+    @media(max-width:1024px){
+      @content;
+    }
+  }
+@mixin pad{
+    @media(max-width:768px){
+      @content;
+    }
+  }
+@mixin mobile{
+    @media(max-width:375px){
+      @content;
+    }
+  }
 html,
 body {
     width: 100vw;
@@ -20,6 +35,15 @@ body {
     width: 350px;
     z-index: 9999;
     background-color: #fff;
+    transition: all 1s;
+
+   &.hide{
+       transform: translateX(-100%);
+       transition: all 1s;
+   }
+   @include pad-horiz{
+       width: 250px;
+   }
 }
 
 .btn {
@@ -45,7 +69,6 @@ body {
 
 //info
 .info {
-    height: 136px;
     background-image: url(../img/img_bg_orange.svg);
     padding-left: 20px;
     color: #fff;
@@ -113,6 +136,13 @@ body {
             font-size: 16px;
             padding: 5px 2px;
         }
+        @include pad-horiz{
+            flex-direction: column;
+            select{
+                width: 100%;
+                margin-bottom: 8px;
+            }
+        }
     }
 
     .maskGroup {
@@ -122,6 +152,12 @@ body {
         .btn.active {
             background: rgba(214, 86, 0, 1) 0% 0% no-repeat padding-box;
             color: rgba(255, 255, 255, 1);
+        }
+        @include pad-horiz{
+            flex-direction: column;
+            .btn{
+                margin-bottom: 8px;
+            }
         }
     }
 }
@@ -197,6 +233,62 @@ body {
             background: rgba(249, 249, 249, 1) 0% 0% no-repeat padding-box;
             color: rgba(204, 204, 204, 1);
             border: none;
+        }
+    }
+    @include pad-horiz{
+        flex-direction: column;
+        .btn{
+            width: 80%;
+            margin-bottom: 8px;
+        }
+    }
+}
+.btn-toggle{
+    position: absolute;
+    left: 350px;
+    top:50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    font-size: 50px;
+    padding: 5px;
+    color: #d65600;
+    cursor: pointer;
+    transition: left 1s , transform 1s;
+    &:hover{
+        animation: icon-moving-hide 1.5s infinite;
+    }
+    @keyframes icon-moving-hide {
+        0%{
+            left: 350px;
+        }
+        50%{
+            left: 343px;
+        }
+        100%{
+            left: 350px;
+        }
+    }
+
+    &.hide{
+        transform:translateY(-50%) translateX(-350px) rotate(180deg);
+        transition: all 1.5s;
+    }
+    @include pad-horiz{
+        left: 250px;
+        @keyframes icon-moving-hide {
+            0%{
+                left: 250px;
+            }
+            50%{
+                left: 243px;
+            }
+            100%{
+                left: 250px;
+            }
+        }
+        &.hide{
+            transform:translateY(-50%) translateX(-250px) rotate(180deg);
+            transition: all 1.5s;
         }
     }
 }

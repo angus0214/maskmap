@@ -7,6 +7,7 @@ $(document).ready(function () {
   setDateDetail();
   //地圖載入
   setBasicMap();
+  sidebarToggle();
 });
 
 function setDateDetail() {
@@ -345,4 +346,10 @@ let greyIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-function test() {}
+function sidebarToggle(){
+  
+  $('.btn-toggle').on('click',function(){
+    $(this).toggleClass('hide');
+    $('.sidebar').toggleClass('hide');
+  })
+}

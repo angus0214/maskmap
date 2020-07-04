@@ -78,6 +78,21 @@ body {
   width: 350px;
   z-index: 9999;
   background-color: #fff;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.sidebar.hide {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 250px;
+  }
 }
 
 .btn {
@@ -103,7 +118,6 @@ body {
 }
 
 .info {
-  height: 136px;
   background-image: url(../img/img_bg_orange.svg);
   padding-left: 20px;
   color: #fff;
@@ -188,6 +202,19 @@ body {
   padding: 5px 2px;
 }
 
+@media (max-width: 1024px) {
+  .searchbar .selectBox {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .searchbar .selectBox select {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
 .searchbar .maskGroup {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -200,6 +227,18 @@ body {
 .searchbar .maskGroup .btn.active {
   background: #d65600 0% 0% no-repeat padding-box;
   color: white;
+}
+
+@media (max-width: 1024px) {
+  .searchbar .maskGroup {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .searchbar .maskGroup .btn {
+    margin-bottom: 8px;
+  }
 }
 
 .list li {
@@ -271,6 +310,106 @@ body {
   background: #f9f9f9 0% 0% no-repeat padding-box;
   color: #cccccc;
   border: none;
+}
+
+@media (max-width: 1024px) {
+  .maskBox {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .maskBox .btn {
+    width: 80%;
+    margin-bottom: 8px;
+  }
+}
+
+.btn-toggle {
+  position: absolute;
+  left: 350px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 9999;
+  font-size: 50px;
+  padding: 5px;
+  color: #d65600;
+  cursor: pointer;
+  -webkit-transition: left 1s , -webkit-transform 1s;
+  transition: left 1s , -webkit-transform 1s;
+  transition: left 1s , transform 1s;
+  transition: left 1s , transform 1s , -webkit-transform 1s;
+}
+
+.btn-toggle:hover {
+  -webkit-animation: icon-moving-hide 1.5s infinite;
+          animation: icon-moving-hide 1.5s infinite;
+}
+
+@-webkit-keyframes icon-moving-hide {
+  0% {
+    left: 350px;
+  }
+  50% {
+    left: 343px;
+  }
+  100% {
+    left: 350px;
+  }
+}
+
+@keyframes icon-moving-hide {
+  0% {
+    left: 350px;
+  }
+  50% {
+    left: 343px;
+  }
+  100% {
+    left: 350px;
+  }
+}
+
+.btn-toggle.hide {
+  -webkit-transform: translateY(-50%) translateX(-350px) rotate(180deg);
+          transform: translateY(-50%) translateX(-350px) rotate(180deg);
+  -webkit-transition: all 1.5s;
+  transition: all 1.5s;
+}
+
+@media (max-width: 1024px) {
+  .btn-toggle {
+    left: 250px;
+  }
+  @-webkit-keyframes icon-moving-hide {
+    0% {
+      left: 250px;
+    }
+    50% {
+      left: 243px;
+    }
+    100% {
+      left: 250px;
+    }
+  }
+  @keyframes icon-moving-hide {
+    0% {
+      left: 250px;
+    }
+    50% {
+      left: 243px;
+    }
+    100% {
+      left: 250px;
+    }
+  }
+  .btn-toggle.hide {
+    -webkit-transform: translateY(-50%) translateX(-250px) rotate(180deg);
+            transform: translateY(-50%) translateX(-250px) rotate(180deg);
+    -webkit-transition: all 1.5s;
+    transition: all 1.5s;
+  }
 }
 
 .marker-cluster-small {
